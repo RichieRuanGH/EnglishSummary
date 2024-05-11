@@ -1,0 +1,14 @@
+Pandas 多对象连接
+
+1. concat() 类对象
+	pd.concat([df对象列表]) ， 
+	默认axis=0纵向拼接，axis=1横向拼接；自动对齐相同索引的列，如果不同，设为NaN, join=''outer'
+	参数keys=['对应df对象名称1','',''],axis=0时，自动增加一层索引，axis=1时，替换为列名
+
+	DF与Series在axis=1拼接时，自动增加一列， 但需要纵向拼接时， Series需进行转换
+		Series.to_frame().T
+
+
+2. merge() 类对象
+	pd.merge(左对象，右对象，how，on|left_on|right_on|left_index（True|False）|right_index)
+	

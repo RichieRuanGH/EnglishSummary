@@ -1,0 +1,230 @@
+Pandas 常见使用方法解析 
+（以DataFrame  df 为主要格式，涉及Series会单独提示）
+
+一、选择类
+1 [] 中括号选择 行或列
+	a. df['Column'] df选择某一列 返回一个Series对象
+	b. df[['Column1']]，df[['Column1'，’Column2‘]] 如果要返回df对象，则在中间插入columns列表
+		*该方式 df[['b','a']] = df[['a','b']] 可以直接交换数值，
+		*而loc和iloc则会先对其，所以无法贾环，需要先将 
+		 df[['a','b']].to_numpy()进行转换成一般数组再赋值
+	c. df[与row长度相同的Series，dtype为boolean] 则返回boolean值为True的行，
+		任何形式返回的Series of boolean都可以，大小，isin ，notna等
+		* df[] 方式不可以直接使用行号或范围选择内容
+	d. df[ df["columns"].isin([一个列表]) ] 通过Series的的值返回df 与c理论相同
+		**多条件 使用（）|（）|（） 每个括号包含一个表达式，且必须有括号
+		** 也可以使用字典 {'列名':['a','b'],'列名2':['a','b']}
+		**可以配合.all() 与any() 一同使用，筛选符合部分还是全部符合条件的行
+
+
+	e. df["new_column"] = ''  给新列赋值
+	f. del df["new_column"]  or df。pop("new_column")  删除一列
+
+1.a Series 使用[]
+	a. series.[行号]  	返回具体值 
+		series.[范围 : : |boolean list| list[]] 返回series
+	b. series.["indexs label"] 返回具体值 
+		series.[list indexes label]  返回series
+		**范围也是左闭右开
+
+1.b []中使用boolean条件的结果
+	s[s>0] 只返回符合条件的行，
+		要是保持原shape 使用 s.where(s>0)
+	df[df>0] 返回原shape的新df，不符合条件的赋值NAN，底层同样使用where
+		=df.where(df>0), where中可以使用第二参数指定不符合条件的值如何处理
+
+	***numpy 中的where更像decode ， np.where(条件，符合项的值，不符合项的值）
+		可以使用np.where进行列更新
+
+	where也可以指定不符合项得更新方向，如使用某一列更新则指定axis=’index‘
+	**mask()是 where 取反模式 
+
+	***如果涉及多条件判断，可以使用np.select(conditions, choices, default=)进行数据更新
+	conditions 是一个多boolean条件的列表，[ ()&(),()|() , ]
+	choices是对应condition每个条件的对应值
+
+1.c 类SQL的选择函数 query(’‘)
+	在query()中可以使用条件判断字符串作为判断条件，所有条件都写入’ 单行‘，’‘’多行 ‘’‘中，
+	内容可以是行（索引），列，&，| ~，and or not， 
+	in ， not in （ ==[] !=[]）等
+
+
+2 .loc[], iloc[], 同时选择行与列 (loc iloc 是操作符，不是函数，所以不接（）而用 [] )
+	a. loc['行','列'] 行可以是 Series of boolean or label or range or start:end:step (左闭右开 不包含end)
+				 列	是 “column”时 返回Series
+				    是 ["columns"]时 返回DataFrame
+	b. 使用loc和iloc可以直接给选中的单元格赋值 ，而[]可能涉及到链式引用，造成数据冲突
+	c. 使用loc['行','列']只指定一行与一列时，返回scalar数值= df.at['行','列'] 
+
+	d. df.loc[:,'NEW colummns']=xx  给新列赋值
+		df.loc[new index] = xxx  给新行赋值
+
+
+3. . 直接使用“.”访问属性， 只可以变更值，不能用于加入新列
+
+
+4. 以上方式都可以接受function 或lambda 作为选择器
+**对df或Series做条件判断会返回与源对象等shape的boolean结果，但放入进选择器（如上）则只会显示True的行或列
+
+
+二、数值计算处理类
+1 聚合 Aggregating
+ df["columns"].mean()  Series 返回值; df[["columns"]].mean() Dataframe 返回聚合值的Series
+
+2 df.groupby()  groupby 返回数据结构仍为DF
+	a. groupby("columns") 指定需要分组的列，以列中的值分组，
+		** 如果不计算，groupby结果中指定的列仍是df的一列
+		**一旦发生聚合计算后，分组值为成为结果集的新的index label
+		
+	b. groupby 可接受 ['Column1'，’Column2‘] 多列归组
+	c. 有一些简写函数如 value_counts() 是groupby().count()的简写形式
+	d. groupby 结果的访问 list(groupby对象)
+
+3 df的排序
+	df.sort_index(level,axis,ascending ) 根据索引值排序
+	df.sort_values(by='列名'| ["多列名"]，na_position=’first|last‘) 当有多级列时，[]中可指定索引名与列名
+
+	df.sample(frac=1) 特殊乱序随机乱序使用技巧，使用sample全乱序的方式
+		参数replace 是定是否可以重复选择
+		参数weights 接受一个列表，指定每个元素选取几率，（可以使用weights=’列名‘ 接受df中已有的列作为参数）
+
+
+4 时间处理
+	a. to_datetime() 将string转为datetime格式
+	b. 访问datetime对象中的各值 可以使用dt访问器访问个属性 如 df[“datetime”].dt.month
+	
+
+5 字符串处理
+	df['column'].str.lower()  str也是一种访问器形式，其数据类型为StringMethods
+	拆分字符串 str.split(","),str.get(0) 
+	是否包含某些字符串 str.contains("xxx") 多个条件使用| str.contains("xxx1|xxx2") 类似正则的方法
+
+6 查看df的字符值
+	df.to_string()
+
+
+7 标记、删除重复
+	df.duplicated('列名') 
+	df.drop_duplicated('列名')
+		参数 keep = ’first 第一个不算重复，或保留第一个 |last 最后一个‘|False 全部算重复
+
+三、格式变更类
+
+1  re+ index的几种操作
+	df.index=['',''] 重命名df索引
+ 	reset_index（） 可以压将多级行索引转成列，行索引使用默认0，1，2的形式
+	reindex(index=[new list],columns=[]) 重新设置index为对应的new 	list的值，
+		***但不是改名，如果已有则按照新顺序，如果没有就赋值为NaN，与rename不同
+		a. 如果需要取当前index和新list的交集使用：
+			s.loc[s.index.intersection(newlist)]
+	df.reindex_like(df2) 使df的index与df2（行 与 列）保持一致
+	df.rename(index = {"原始"：“新的”})  ，接受一个字典对象，将老值改为新值
+	df.rename_axis(index = {"原始"：“新的”}) 是修改多级索引的level名称
+	
+	df.set_index('列名'|['列名1','列名2']) 将原本的某列设置为index 或多级index，
+		参数drop= True, 删除原列，False 保留原列
+		参数 append=True，追加新的index， False（默认）重置索引
+
+
+2 多df联合
+	a.  df拼接  pd.concat([df1,df2],axis =0 ,1，keys=["df1名称","df2名称"]) 
+		*axis 0是纵向，1是横向
+		*keys 指定拼接后的df名称，不属于index的部分
+
+	b. df的合并 pd.merge(df1,df2,how='', on '')
+
+
+
+3 Series，df转换成numpy的数组形式
+    Series.to_numpy() 相当于 np.asarray(Series)
+
+
+4 Series and Df 更推荐使用to_numpy方式取值 
+	XXX不建议使用.values
+
+5 插入列到指定位置
+	df.insert(列索引位置，‘列名’，数值|Series)
+
+
+6 变更类型
+	df.astype(类型名 | {'列名'：类型名})
+	df.infer_objects() 根据值推测类型
+
+7 值分解函数pandas.factorize(Series)  传入参数为列表类的数据
+	返回结果含有值分类结果和去重之后的列值 （index，cols）
+	其中index是一个从0开始的与原list对应的分类，cols是去重之后的值
+	传入一个array(['A','A','B','B'])
+	返回值为 [0,0,1,1], Index(['A','B'])
+
+
+三、函数应用
+12 不同方式应用函数
+	a. df["new_column"] = ''  给新列赋值
+	b. df.insert(列索引位置，‘列名’，数值|Series)
+	c. assign()
+		df.assign(列名= 表达式)  表达式返回一个Series赋值新列，但返回的是原df的copy，而非直接更新
+		df.assign(列名 = lambda x：（x["column"]）)  其中x为 整个df
+	
+	d. df.sum() 直接按照方向聚合
+
+	e. apply(函数名)  apply按照行或列传入参数， 直接在原df上修改
+		按找axis 方向应用apply中的函数名
+		函数返回类型为series，则最终返回值为dataframe
+		函数返回类型为其他，最终值则为Series
+		可以为函数接受参数，通过args=(x,y, ) 方式实现， 参数结尾需要为，
+
+	f. 	df.agg(函数| “某些内置函数名如 sum ，mean等” | ["函数名的列表",""])
+		df.agg({'列名':"函数名"}) 对不同列应用不同统计方式
+	g. 
+	transform()
+
+
+
+13 Df与DF 可以自动根据行 列的label对齐
+	DF与Series运算操作时 默认操作Series 索引对应Df的列,即用df的行对Series做运算
+
+
+
+四、Pandas参数调整
+
+
+15 pandas 调整显示参数 
+	pd.set_option("参数"，值)
+		display.width
+ 		display.max_colwidth
+
+五、 使用技巧类
+
+16 Python内置 列表推导式
+	关于x的表达式 for x in itertype ；
+	关于x的表达式 for x in itertype if boolean expression；
+	关于x的表达式 if boolean expression else boolean expression for x in itertype ；
+
+
+
+
+18 可迭代类型iteration  for x in objects
+	默认： Series 循环返回值， DF 循环返回列名
+	iter出的数据不可做修改，无法在原df中生效
+	a. items()
+		Series: 返回(index, scalar value)
+		DF: 返回(column, Series) 返回 列名 与 对应的Series 
+
+	b. iterrows()
+		只对DF生效， 返回 行号与行值 （可通过数组[]访问两个对象）， 行值为 以columns为索引的Series，
+
+	c. itertuple() 
+		返回Pandas元祖 Pandas(Index=行号，col1=值，col2=值)
+
+
+
+
+	
+
+
+
+
+
+
+
+ 

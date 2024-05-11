@@ -1,0 +1,14 @@
+Conda 使用技巧
+
+1.检查配置情况
+	conda config --show
+
+2.关于命令行带有环境标签
+	a. 取消conda环境自动激活
+	conda config --set auto_activate_base trun|false ## 只有在激活conda环境时才会显示
+
+	b. 定义是否显示当前环境标签
+	conda config --set changeps1 true|false  ## 这个是显示激活conda环境内的标签
+
+3.查看现有的环境
+	conda info -e

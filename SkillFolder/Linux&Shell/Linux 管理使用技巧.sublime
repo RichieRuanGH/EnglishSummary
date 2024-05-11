@@ -1,0 +1,60 @@
+Linux 管理使用技巧
+
+1. 路径分割
+	Windows 中使用 反斜线 \ 作为路径分隔符
+	Linux     使用 斜线 / 作为路径分隔符， 反斜线 \ 作为行尾多行命令连接符；
+
+
+
+2. 可以使用正则匹配的命令
+	ls： ls -l iwan*n?
+	grep [option] pattern正则 [文件|标准输入]
+
+
+3. 系统检查命令
+	ps: 检查系统状态
+	top： 检查头部状态
+	df -h：检查磁盘、挂载目录的空间
+	du -h：显示每个文件的块数与大小
+
+4. 父、子命令的方式
+	bash
+	sh command = ./commnad 当前目录没有在PATH中，使用./直接执行
+
+	source = . [command|file] 在当前shell直接执行命令，不创建子命令
+
+
+5. 常用处理
+	sort:默认使用字符序列排序， 可以使用管道 |
+		-n 使用数字排序
+		-t 指定分隔符 -t ':'  ;  -k 使用分割后的第几列
+
+	grep [option] pattern正则 [文件|标准输入]：搜索命令
+		[option] 
+			-v 排除搜索模式之外的数据，反向搜索
+
+	gzip： GNU项目里的zip，压缩数据 .gz
+		--gzip file 压缩文件
+		--gzcat file 查看压缩文件
+		--gunzip file.gz 解压文件
+	tar function[options] 指定归档文件名.tar 待归档object1... ：归档数据
+		function:定义具体功能
+			-A追加归档文件到另一个归档文档； -r 追加文件到另一归档文档
+			-c创建文档
+			-u更新归档文件中的文件
+			-x解压
+		option：选项
+			-C dir 切换到指定目录
+			-j 将结果重定向到bzip2  ； -z 将结果重定向到gzip
+			-v 显示处理文件
+			-f 指定文件名
+		example： tar -cvf xxx.tar dir/ dir/ 
+				  tar -zxvf filename.tgz  / filename.tar.gz
+
+	jobs:查看当前工作进程
+		commnad&：& 将命令转入后台执行
+		fg 序号， 将序号进程转向前台
+		bg 序号， 将job调入后台执行
+		nohup cmd 将cmd置于后台执行，且不随着终端推出而终止
+
+

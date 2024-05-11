@@ -1,0 +1,7 @@
+Pandas 多级索引（多级索引的从上之下，从左至右称为不同level）
+
+1. 获取多级索引的不同level
+	index.get_level_values(位置|’level_name‘) --> 获取 Index array
+
+2. 通过xs选择数据
+	df.xs("列名",level=’对应的索引名称‘)
