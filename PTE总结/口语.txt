@@ -6,6 +6,9 @@
 	1、单词发音一定要保证准确，以猩际APP练习，如果发音基本全绿，但是得分不高，很可能是某些单词发音错误，但他没有识别。
 	2、一定要有重音，单词重音、句子重音都很重要。可以尝试使用点头法找寻重音位置（但是避免抬重音，就是不要刻意的发出重音）
 	而且重音在名词（实词），动词，等词上 ， 但是具体重音在前在后可根据个人习惯，并不是唯一确定
+	2.a、 关于流利度问题，合理的意群划分，然后意群的关键词重读，并且有节奏，可以慢
+	2.b、 失爆连读中 d t尾音可以停顿省略
+
 	3、避免蹦词、抬重音、拖长音、和避免短意群间的过长停顿（状语前停顿可稍长）
 	4、选句方式， 以首句-->尾句-->第二句 的顺序选词。 经过长时间练习，其实大多词语都可以拼读出来，所以尽量以第一句为宜。
 	5、实在有长难单词，最后的方法可以选择跳过（慎用）。
@@ -22,15 +25,15 @@
 	5、发音，节奏尽量贴近RA
 
 三、DI
-	The following picture shows the information about
+	The following picture（重音） shows the information（重音） about
 	From the picture, there is _____,_____and _____ （单词）
 	From the picture, the years include _____ ,_____, and ______（ 年份）
 	From the picture, we can see there is _____,______and _____  （百分比，数字，补充信息）
 
 	And this picture is also about vertical and horizontal æksɪs/ (axis)
 	and also about top and bottom
-	and also about left and right
-	and also about increase and decrease
+	and also about left and right (corner/ side)
+	and also about increase and decrease and similar
 	and also about largest and smallest
 	and also about the center of the picture
 	and also about blue and red color
