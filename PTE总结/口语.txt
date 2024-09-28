@@ -13,6 +13,8 @@
 	4、选句方式， 以首句-->尾句-->第二句 的顺序选词。 经过长时间练习，其实大多词语都可以拼读出来，所以尽量以第一句为宜。
 	5、实在有长难单词，最后的方法可以选择跳过（慎用）。
 
+	6、实词主语（不是代词主语）的单词可以划分一个意群 如 Scientists， Children 等比较长的单词
+
 
 
 二、RS
@@ -49,7 +51,7 @@ RS & RL 在考试中可以横着使用草稿板， 可以将听到的词写在�
 
 	The given lecture talks about ___关键词______
 
-	According to the lecture, the speaker mentioned 
+	According to、 From  the lecture, the speaker mentioned 
 		there is _____and ______
 
 	According to the lecture, the speaker mentioned 

@@ -17,14 +17,15 @@
 	3. 注意关键词的单复数，尽量使用题目中的原词形式，注意 the；a；+s 等形式的使用 
 	4. 模版文章如下：
 
-	Nowadays, many headlines hit the newspaper on the topic of （television题目关键词). 
+	Nowadays, many headlines hit the newspaper on the topic of （television题目关键词、whether语句). 
 	This issue sparked a huge debate on （whether 基于题目改写一个whether语句）. 
 	From my own point of view, I believe that （television serves many useful functions来源于题目）.
 
 
 	On the one hand, there are numerous solid reasons why （television serves many useful functions）. 
 	Although potentially negative impacts of （television） should be taken into account, 
-	I still reckon that （television） has(这里注意前方主语单复数是用have还是has) in many ways enriched people's lives. For instance, a well-known American psychologist once said that television can make our lives more interesting.
+	I still reckon that （television） has(这里注意前方主语单复数是用have还是has) in many ways enriched people's lives. 
+	For instance, a well-known American psychologist once said that television can make our lives more interesting.
 
 
 	On the other hand, those who argue against the use of （television） hold a different opinion. 
