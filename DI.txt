@@ -3,7 +3,7 @@ The following picture shows the information about __标题__
 The items include 名词1， 名词2 (难说的，不易关注到的)
 The picture shows how the process is done.
 
----线
+---线行图
 According to this graph, we can see that (the number of _名词_ increased smoothly from _数字_ to _数字_ 
 reaching the maximum in __年份__)
 
